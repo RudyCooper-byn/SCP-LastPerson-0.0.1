@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byuh2i54fuui4" path="res://Scripts/Player.gd" id="1_kpjcp"]
 [ext_resource type="PackedScene" uid="uid://dsi28me3gmn24" path="res://Scenes/InteractRast.tscn" id="2_kne1u"]
-[ext_resource type="PackedScene" uid="uid://dwfttruvgy78h" path="res://Scenes/AR-15.tscn" id="3_gntrk"]
+[ext_resource type="PackedScene" uid="uid://baffulybde0nx" path="res://Scenes/Gun.tscn" id="3_gntrk"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xc2g5"]
 
@@ -26,8 +26,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67939, 0)
 
 [node name="RayCast3D" parent="Head/Camera3D" instance=ExtResource("2_kne1u")]
 
-[node name="Gun" parent="Head/Camera3D" instance=ExtResource("3_gntrk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.478569, -0.370464, -0.948535)
+[node name="Sketchfab_Scene" parent="Head/Camera3D" instance=ExtResource("3_gntrk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.464994, -0.336139, -0.84908)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

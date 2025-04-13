@@ -18,10 +18,12 @@ const FOV_CHANGE = 1.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8
 
+var Bullet = load("res://Scenes/bullet.tscn")
+var instance 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
-
-
+@onready var gun_anim = $Head/Camera3D/Sketchfab_Scene/AnimationPlayer
+@onready var gun_barrel = $Head/Camera3D/Sketchfab_Scene/RayCast3D
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -47,7 +49,14 @@ func _physics_process(delta):
 		speed = SPRINT_SPEED
 	else:
 		speed = WALK_SPEED
-
+	#shooting
+	if Input.is_action_just_pressed("shoot"):
+		if !gun_anim.is_playing():
+			gun_anim.play("Armature_003|shooting")
+			instance = Bullet.instantiate()
+			instance.position = gun_barrel.global_position
+			instance.transform.basis = gun_barrel.global_transform.basis
+			get_parent().add_child(instance)
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	var direction = (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()

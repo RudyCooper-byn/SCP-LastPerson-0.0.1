@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d38vefa8j3vnw"]
+
+[ext_resource type="Script" uid="uid://b4xxqyqyxgfjh" path="res://Scripts/bullet.gd" id="1_xjght"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4mw4s"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="bullet" type="Node3D"]
+script = ExtResource("1_xjght")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_4mw4s")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -0.1)

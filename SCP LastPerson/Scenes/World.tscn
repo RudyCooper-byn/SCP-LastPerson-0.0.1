@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://db2h3t17k37pe"]
+[gd_scene load_steps=9 format=3 uid="uid://db2h3t17k37pe"]
 
 [ext_resource type="PackedScene" uid="uid://63ho8ak0l2fa" path="res://Scenes/Player.tscn" id="1_5cjrv"]
 [ext_resource type="PackedScene" uid="uid://bkussxypna6lh" path="res://Scenes/Button.tscn" id="1_j0p05"]
 [ext_resource type="PackedScene" uid="uid://brcr5jsjovq2m" path="res://Scenes/door.tscn" id="2_5nsto"]
+[ext_resource type="PackedScene" uid="uid://df52l5k4j5l4a" path="res://Scenes/SCP049.tscn" id="4_gjpho"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5cjrv"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -16,6 +17,9 @@ background_mode = 2
 sky = SubResource("Sky_j0p05")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_5nsto"]
+agent_max_slope = 60.0
 
 [node name="World" type="Node3D"]
 
@@ -35,49 +39,96 @@ transform = Transform3D(1.19249e-07, 0, -10, 0, 10, 0, 10, 0, 1.19249e-07, -0.80
 [node name="Door" parent="Map" instance=ExtResource("2_5nsto")]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 15.9519, -0.0200511, -11.4553)
 
+[node name="Door2" parent="Map" instance=ExtResource("2_5nsto")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 26.784, 0.00144309, -11.6859)
+
 [node name="buttonDoor" parent="Map" instance=ExtResource("1_j0p05")]
 transform = Transform3D(-4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, 15.8843, 1.20623, -12.2584)
 prompt_message = "Open"
 
-[node name="Floor_wall" type="Node3D" parent="Map"]
+[node name="buttonDoor2" parent="Map" instance=ExtResource("1_j0p05")]
+transform = Transform3D(1.19249e-07, 0, -10, 0, 10, 0, 10, 0, 1.19249e-07, 15.9698, 1.20623, -12.349)
+prompt_message = "Open"
 
-[node name="floor" type="CSGBox3D" parent="Map/Floor_wall"]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.510846, 0.000499964, -10.8355)
+navigation_mesh = SubResource("NavigationMesh_5nsto")
+
+[node name="Floor_wall" type="Node3D" parent="Map/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.510846, -0.000499964, 10.8355)
+
+[node name="floor" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.55724, 0, -11.9653)
 use_collision = true
 size = Vector3(16.7256, 0.001, 7.64307)
 
-[node name="floor2" type="CSGBox3D" parent="Map/Floor_wall"]
+[node name="floor3" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.3653, -3.72529e-09, -11.9653)
+use_collision = true
+size = Vector3(10.8926, 0.001, 7.64307)
+
+[node name="floor4" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.3653, 2.39768, -11.9653)
+use_collision = true
+size = Vector3(10.8926, 0.0927852, 7.64307)
+
+[node name="floor2" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.55724, 2.382, -11.9653)
 use_collision = true
 size = Vector3(16.7256, 0.132824, 7.64307)
 
-[node name="wall" type="CSGBox3D" parent="Map/Floor_wall"]
+[node name="wall" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.56308, 1.213, -15.2925)
 use_collision = true
 size = Vector3(16.7108, 2.4697, 0.989258)
 
-[node name="wall2" type="CSGBox3D" parent="Map/Floor_wall"]
+[node name="wall6" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4121, 1.213, -15.5647)
+use_collision = true
+size = Vector3(10.9411, 2.4697, 0.444824)
+
+[node name="wall7" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.3747, 1.213, -8.41628)
+use_collision = true
+size = Vector3(10.8664, 2.4697, 0.444824)
+
+[node name="wall2" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.791831, 1.213, -11.9698)
 use_collision = true
 size = Vector3(0.001, 2.4697, 7.63461)
 
-[node name="wall4" type="CSGBox3D" parent="Map/Floor_wall"]
+[node name="wall4" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9381, 1.213, -9.47423)
 use_collision = true
 size = Vector3(0.0953486, 2.4697, 2.63566)
 
-[node name="wall5" type="CSGBox3D" parent="Map/Floor_wall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9424, 1.20392, -13.4362)
+[node name="wall8" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.7764, 1.213, -9.58997)
 use_collision = true
-size = Vector3(0.107434, 2.4697, 2.72776)
+size = Vector3(0.0953486, 2.4697, 2.86715)
 
-[node name="wall3" type="CSGBox3D" parent="Map/Floor_wall"]
+[node name="wall9" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.7764, 1.213, -13.7792)
+use_collision = true
+size = Vector3(0.0953486, 2.4697, 2.96855)
+
+[node name="wall5" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9589, 1.20392, -14.6119)
+use_collision = true
+size = Vector3(0.140509, 2.4697, 5.07921)
+
+[node name="wall3" type="CSGBox3D" parent="Map/NavigationRegion3D/Floor_wall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.55479, 1.213, -8.15299)
 use_collision = true
 size = Vector3(16.6942, 2.4697, 0.001)
 
 [node name="Player" parent="." instance=ExtResource("1_5cjrv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.2527)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.510846, 0.000499964, -10.8355)
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("4_gjpho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5251, 0.000500198, -11.8719)
+player_path = null
 
 [connection signal="interacted" from="Map/Button femur" to="Map/Button femur" method="_on_interacted"]
 [connection signal="interacted" from="Map/buttonDoor" to="Map/Door" method="toggle"]
+[connection signal="interacted" from="Map/buttonDoor2" to="Map/Door" method="toggle"]

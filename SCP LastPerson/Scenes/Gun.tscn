@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://baffulybde0nx"]
+
+[ext_resource type="PackedScene" uid="uid://eimwmbbn5urj" path="res://Models/AR-15/ar15.glb" id="1_m3ict"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_m3ict")]
+
+[node name="Sketchfab_model" parent="." index="0"]
+transform = Transform3D(0.001, 0, 0, 0, -4.37114e-11, 0.001, 0, -0.001, -4.37114e-11, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Sketchfab_model/42f143c1387c46329bb89d9aa3059d87_fbx/Object_2/RootNode/Armature_003/Object_5" index="0"]
+bones/1/rotation = Quaternion(1, 4.78659e-15, 7.54979e-08, -1.33158e-07)
+bones/6/rotation = Quaternion(7.48691e-23, -2.38419e-07, 1.56906e-14, 1)
+bones/8/rotation = Quaternion(-0.5, 0.5, -0.5, 0.5)
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0119187, 0.0686358, -0.557378)
+target_position = Vector3(0, 0, -1)
