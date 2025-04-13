@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://brcr5jsjovq2m"]
+
+[ext_resource type="Script" uid="uid://bug5ppsq28div" path="res://Scripts/door.gd" id="1_p0e35"]
+[ext_resource type="PackedScene" uid="uid://cpfbnajmu31sc" path="res://Models/scpcbdoor/scp_door.glb" id="1_w6aom"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p0e35"]
+size = Vector3(1.30991, 2.29932, 0.11499)
+
+[sub_resource type="Animation" id="Animation_ab4ky"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_Scene:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fahql"]
+resource_name = "close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_Scene:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.346, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p0e35"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_Scene:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.361, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a43ba"]
+_data = {
+&"RESET": SubResource("Animation_ab4ky"),
+&"close": SubResource("Animation_fahql"),
+&"open": SubResource("Animation_p0e35")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w6aom"]
+animation = &"close"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p0e35"]
+animation = &"open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fahql"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ab4ky"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a43ba"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fahql"]
+states/Start/position = Vector2(176, 100)
+states/close/node = SubResource("AnimationNodeAnimation_w6aom")
+states/close/position = Vector2(364, 41)
+states/open/node = SubResource("AnimationNodeAnimation_p0e35")
+states/open/position = Vector2(364, 149)
+transitions = ["Start", "close", SubResource("AnimationNodeStateMachineTransition_fahql"), "open", "close", SubResource("AnimationNodeStateMachineTransition_ab4ky"), "close", "open", SubResource("AnimationNodeStateMachineTransition_a43ba")]
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_p0e35")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_w6aom")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sketchfab_Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0334084, 1.20113, 0.0198975)
+shape = SubResource("BoxShape3D_p0e35")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a43ba")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_fahql")
+anim_player = NodePath("../AnimationPlayer")

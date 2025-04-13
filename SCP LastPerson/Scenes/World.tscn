@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=3 uid="uid://db2h3t17k37pe"]
+
+[ext_resource type="PackedScene" uid="uid://63ho8ak0l2fa" path="res://Scenes/Player.tscn" id="1_5cjrv"]
+[ext_resource type="PackedScene" uid="uid://bkussxypna6lh" path="res://Scenes/Button.tscn" id="1_j0p05"]
+[ext_resource type="PackedScene" uid="uid://brcr5jsjovq2m" path="res://Scenes/door.tscn" id="2_5nsto"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5cjrv"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_j0p05"]
+sky_material = SubResource("ProceduralSkyMaterial_5cjrv")
+
+[sub_resource type="Environment" id="Environment_5nsto"]
+background_mode = 2
+sky = SubResource("Sky_j0p05")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+sky_mode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Map"]
+environment = SubResource("Environment_5nsto")
+
+[node name="Button femur" parent="Map" instance=ExtResource("1_j0p05")]
+transform = Transform3D(1.19249e-07, 0, -10, 0, 10, 0, 10, 0, 1.19249e-07, -0.807737, 1.2028, -11.9696)
+
+[node name="Door" parent="Map" instance=ExtResource("2_5nsto")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 15.9519, -0.0200511, -11.4553)
+
+[node name="buttonDoor" parent="Map" instance=ExtResource("1_j0p05")]
+transform = Transform3D(-4.37114e-07, 0, 10, 0, 10, 0, -10, 0, -4.37114e-07, 15.8843, 1.20623, -12.2584)
+prompt_message = "Open"
+
+[node name="Floor_wall" type="Node3D" parent="Map"]
+
+[node name="floor" type="CSGBox3D" parent="Map/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.55724, 0, -11.9653)
+use_collision = true
+size = Vector3(16.7256, 0.001, 7.64307)
+
+[node name="floor2" type="CSGBox3D" parent="Map/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.55724, 2.382, -11.9653)
+use_collision = true
+size = Vector3(16.7256, 0.132824, 7.64307)
+
+[node name="wall" type="CSGBox3D" parent="Map/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.56308, 1.213, -15.2925)
+use_collision = true
+size = Vector3(16.7108, 2.4697, 0.989258)
+
+[node name="wall2" type="CSGBox3D" parent="Map/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.791831, 1.213, -11.9698)
+use_collision = true
+size = Vector3(0.001, 2.4697, 7.63461)
+
+[node name="wall4" type="CSGBox3D" parent="Map/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9381, 1.213, -9.47423)
+use_collision = true
+size = Vector3(0.0953486, 2.4697, 2.63566)
+
+[node name="wall5" type="CSGBox3D" parent="Map/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9424, 1.20392, -13.4362)
+use_collision = true
+size = Vector3(0.107434, 2.4697, 2.72776)
+
+[node name="wall3" type="CSGBox3D" parent="Map/Floor_wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.55479, 1.213, -8.15299)
+use_collision = true
+size = Vector3(16.6942, 2.4697, 0.001)
+
+[node name="Player" parent="." instance=ExtResource("1_5cjrv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.2527)
+
+[connection signal="interacted" from="Map/Button femur" to="Map/Button femur" method="_on_interacted"]
+[connection signal="interacted" from="Map/buttonDoor" to="Map/Door" method="toggle"]

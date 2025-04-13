@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwfttruvgy78h"]
+
+[ext_resource type="PackedScene" uid="uid://eimwmbbn5urj" path="res://Models/AR-15/ar15.glb" id="1_8uij5"]
+
+[sub_resource type="Animation" id="Animation_8uij5"]
+resource_name = "Shoot"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q50nw"]
+_data = {
+&"Shoot": SubResource("Animation_8uij5")
+}
+
+[node name="Gun" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_8uij5")]
+transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_q50nw")
+}

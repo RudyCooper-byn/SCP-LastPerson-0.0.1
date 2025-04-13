@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkussxypna6lh"]
+
+[ext_resource type="Script" uid="uid://c1l5oajk7ptyp" path="res://Scripts/button.gd" id="1_a506e"]
+[ext_resource type="PackedScene" uid="uid://c4c3h1b78ysju" path="res://Models/scpbutton/scpcb_button.glb" id="1_p3102"]
+[ext_resource type="AudioStream" uid="uid://f8efdgqm0p7e" path="res://scp-containment-breach_-femur-breaker-made-with-Voicemod.mp3" id="3_8bxxr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p3102"]
+size = Vector3(0.0278931, 0.0585938, 0.0155563)
+
+[node name="StaticBody3D" type="StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0.0011749, 0.00122015, 0.000699788)
+script = ExtResource("1_a506e")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_p3102")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000640869, 0.0107422, -0.00716019)
+shape = SubResource("BoxShape3D_p3102")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4644, 1.38405, -11.7013)
+stream = ExtResource("3_8bxxr")
+volume_db = 80.0
